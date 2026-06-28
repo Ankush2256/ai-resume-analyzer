@@ -1,0 +1,9 @@
+streamlit
+PyMuPDF
+google-generativeai
+python-dotenv
+pandas
+plotly
+streamlit-option-menu
+streamlit-lottie
+streamlit-extras
