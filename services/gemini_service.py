@@ -9,21 +9,29 @@ from utils.prompt import get_resume_prompt
 
 load_dotenv()
 
-# First try .env (Local)
-API_KEY = os.getenv("GEMINI_API_KEY")
+def get_api_key():
+    # Local .env
+    api_key = os.getenv("GEMINI_API_KEY")
 
-# If not found, try Streamlit Secrets (Cloud)
-if not API_KEY:
+    if api_key:
+        return api_key
+
+    # Streamlit Cloud Secrets
     try:
-        API_KEY = st.secrets["GEMINI_API_KEY"]
+        return st.secrets["GEMINI_API_KEY"]
     except Exception:
-        API_KEY = None
+        return None
 
-# If still not found
-if not API_KEY:
-    raise ValueError(
-        "Gemini API Key not found. Add it to your local .env file or Streamlit Secrets."
+
+API_KEY = get_api_key()
+
+if API_KEY is None:
+    st.error(
+        "❌ Gemini API Key not found.\n\n"
+        "Local: create a .env file with GEMINI_API_KEY\n"
+        "Cloud: add GEMINI_API_KEY to Streamlit Secrets."
     )
+    st.stop()
 
 # ---------------- Configure Gemini ---------------- #
 

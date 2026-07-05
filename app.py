@@ -10,7 +10,6 @@ from services.gemini_service import (
 # ---------------- Page Config ---------------- #
 
 
-st.write("Secrets available:", dict(st.secrets))
 st.set_page_config(
     page_title="AI Resume Analyzer Pro",
     page_icon="🤖",
